@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import { Todo } from "../model/todo";
 import PocketBase from 'pocketbase';
+import { useTodosService } from "../services/todos/useTodosService";
+
+interface TodosProps{
+    todos: Todo[];
+    activeItem: Partial<Todo> | null;
+    onEditItem: (product: Partial<Todo>) => void;
+    onDeleteItem: (id: string) => void;
+}
 
 export const pb = new PocketBase('http://127.0.0.1:8090')
-export function TodoCard(){
+
+export function TodoCard(props: TodosProps){
     
     const [todos, setTodos] = useState<Todo[]>([])
+    const {state, actions} = useTodosService()
 
     useEffect(() => {
         loadData()
@@ -13,34 +23,29 @@ export function TodoCard(){
       }, [])
 
     function editTodo(){
-        console.log('Editore');
+        console.log('edit')
+        
         
     }
     
-    function deleteTodo(){
+    function deleteTodo(id:Partial<Todo>){
         console.log('CANCELLED');
     }
     
     function loadData(){
         pb.collection('todos').getList<Todo>()
         .then(res => {
-        console.log('Array vuoto', todos);
         setTodos(res.items)
-        console.log(res);
-        console.log('Array riempito', todos);
-        return todos
       }) 
       
     }
 
     function toggleCompletion(id: Partial <Todo>){
         console.log('Completami/scompletami');
-       console.log(id.text);
+        console.log(id.text);
        
         
     }
-    
-    console.log('NNNNNNNNNNNNN', todos);
     
     return (
 
@@ -55,13 +60,7 @@ export function TodoCard(){
                 </span>
                 <div className="todo-btns">
                     <button onClick={editTodo}>Modifica</button>
-                    <button onClick={() => {
-                        console.log(todo);
-                        
-                    }}
-                
-                    >Cancella</button>
-                <button onClick={toggleCompletion}>Segna come {todo.isCompleted ? 'da completare' : 'completato'} </button>
+                    <button>Cancella</button>
                 </div>
                 <span>Stato: {todo.isCompleted ? 'completato' : 'da completare'}</span>
             </div>
