@@ -35,6 +35,7 @@ export function TodoCard(){
 
     function toggleCompletion(id: Partial <Todo>){
         console.log('Completami/scompletami');
+       console.log(id.text);
        
         
     }
@@ -54,8 +55,13 @@ export function TodoCard(){
                 </span>
                 <div className="todo-btns">
                     <button onClick={editTodo}>Modifica</button>
-                    <button onClick={deleteTodo}>Cancella</button>
-                   <button onClick={toggleCompletion}>Segna come {todo.isCompleted ? 'da completare' : 'completato'} </button>
+                    <button onClick={() => {
+                        console.log(todo);
+                        
+                    }}
+                
+                    >Cancella</button>
+                <button onClick={toggleCompletion}>Segna come {todo.isCompleted ? 'da completare' : 'completato'} </button>
                 </div>
                 <span>Stato: {todo.isCompleted ? 'completato' : 'da completare'}</span>
             </div>
