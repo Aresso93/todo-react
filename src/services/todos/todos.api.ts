@@ -1,8 +1,10 @@
 import { Todo } from "../../model/todo";
-import { pb } from "../../pocketbase"
+import { pb } from "../../pocketbase";
 
-export function get(){
-    return pb.collection('todos').getList<Todo>();
+
+export async function get(){
+    const p =  await pb.collection('todos').getList<Todo>();
+    return p;
 }
 
 export function remove(id:string){

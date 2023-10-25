@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Todo } from "../model/todo";
 import PocketBase from 'pocketbase';
 import { useTodosService } from "../services/todos/useTodosService";
+import { act } from "react-dom/test-utils";
 
 interface TodosProps{
     todos: Todo[];
@@ -18,9 +19,14 @@ export function TodoCard(props: TodosProps){
     const {state, actions} = useTodosService()
 
     useEffect(() => {
-        loadData()
-    
+        actions.getTodos()
+        console.log(state);
+        
       }, [])
+
+    useEffect(()=>{
+        console.log('bbbbb', state);
+    }, [state])
 
     function editTodo(){
         console.log('edit')
@@ -41,8 +47,7 @@ export function TodoCard(props: TodosProps){
     }
 
     function toggleCompletion(id: Partial <Todo>){
-        console.log('Completami/scompletami');
-        console.log(id.text);
+        console.log('Completami/scompletami', id);
        
         
     }
@@ -50,8 +55,8 @@ export function TodoCard(props: TodosProps){
     return (
 
         todos.map(todo =>
-            <div className="card-container" key={todo.id}>
-            <div className="todo-card" >
+            
+            <div className="todo-card" key={todo.id}>
                 <h3 className="todo-title">
                     {todo.title}
                 </h3>
@@ -61,11 +66,13 @@ export function TodoCard(props: TodosProps){
                 <div className="todo-btns">
                     <button onClick={editTodo}>Modifica</button>
                     <button>Cancella</button>
+                    <button onClick={()=>{console.log(todo.id)}}>Dammi l'ID</button>
+                    <button onClick={toggleCompletion}>Segna come {todo.isCompleted ? 'da completare' : 'completato'} </button>
                 </div>
                 <span>Stato: {todo.isCompleted ? 'completato' : 'da completare'}</span>
             </div>
 
-            </div>
+            
             
         )
        
