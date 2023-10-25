@@ -30,6 +30,10 @@ export function useTodosService(){
         
       }
 
+      // function toggleCompletion(isCompleted:boolean){
+      //   dispatch({type: 'todoToggleCompletion', payload: isCompleted})
+      // }
+
       async function addTodo(Todo: Partial<Todo>){
         dispatch({type: 'pending', payload: true})
         try{
@@ -66,6 +70,7 @@ export function useTodosService(){
         actions: {
             getTodos,
             deleteTodo,
+            //toggleCompletion,
             addTodo,
             editTodo,
             setActiveItem,

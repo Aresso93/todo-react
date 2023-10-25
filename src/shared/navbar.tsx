@@ -5,8 +5,12 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
+import { useTodosService } from "../services/todos/useTodosService";
 
 export default function Navbar() {
+
+//const {state, actions} = useTodosService()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -27,9 +31,6 @@ export default function Navbar() {
             Aggiungi un nuovo todo
           </Typography>
           <IconButton
-            onClick={()=>{
-                console.log('HADOKEN')
-            }}
             size="small"
             edge="end"
             color="inherit"

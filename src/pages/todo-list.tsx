@@ -8,8 +8,10 @@ export function TodoList(){
 
     return (
         <TodoCard 
-        todos={[]}
+            todos={[]} 
+            onDeleteTodo={function (){
         
+            } }        
         ></TodoCard>
     )
 }
