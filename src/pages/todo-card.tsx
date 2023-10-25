@@ -73,13 +73,14 @@ export function TodoCard(props: TodosProps){
                     onClick={editTodo}>Modifica</Button>
                     <Button
                     variant="contained"
+                    color="warning"
                     onClick={(event) => {
                         event.stopPropagation()
-                        props.onDeleteTodo(todo.id)
+                        actions.deleteTodo(todo.id)
                         }}
                     >Cancella</Button>
                     <Button variant="contained" onClick={()=>{console.log(todo.id)}}>Dammi l'ID</Button>
-                    {todo.isCompleted ? <Button variant="outlined">Segna come da completare</Button> : <Button variant="contained">Segna come completato</Button>}
+                    {todo.isCompleted ? <Button variant="outlined">Segna come da completare</Button> : <Button variant="contained" color="success">Segna come completato</Button>}
           </CardActions>
         </Card>
       )
