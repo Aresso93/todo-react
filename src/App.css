@@ -13,3 +13,16 @@ html, body {
     margin-bottom: 8px;
 }
 
+.card-content{
+   flex-wrap: wrap;
+}
+
+.card-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 16px;
+}

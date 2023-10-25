@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Todo } from "../model/todo";
 import { useTodosService } from "../services/todos/useTodosService";
 import Button from '@mui/material/Button';
@@ -17,18 +17,12 @@ interface TodosProps{
     todos: Todo[];
 }
 
-// function completionToggler(state: Partial<Todo>, action: any){
-//     switch (action.type) {
-//         case 'isCompleted':
-//     }
-// }
 
 export function TodoCard(props: TodosProps){
     
     const {state, actions} = useTodosService()
 
-    // const [state, dispatch] = useReducer(completionToggler, {isCompleted: false || true})
-
+    
     useEffect(() => {
         actions.getTodos()
         console.log(state);
@@ -41,9 +35,11 @@ export function TodoCard(props: TodosProps){
 
     
     return (
-        state.todos.map(todo => 
-        <Card variant="outlined" sx={{ minWidth: 275 }} key={todo.id}>
-            <CardContent >
+        <div className="card-wrapper">
+
+        {state.todos.map(todo => 
+        <Card variant="outlined" sx={{maxWidth: 500}} key={todo.id}>
+            <CardContent className="card-content" >
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             </Typography>
             <Typography variant="h5" component="div">
@@ -93,7 +89,10 @@ export function TodoCard(props: TodosProps){
         <Button variant="outlined">Segna come da completare</Button> : 
         <Button variant="contained" color="success">Segna come completato</Button>}
           </CardActions>
+           
         </Card>
-      )
+    
+      )}
+      </div>
     )
 }
