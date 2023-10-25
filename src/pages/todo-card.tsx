@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Todo } from "../model/todo";
 import PocketBase from 'pocketbase';
 import { useTodosService } from "../services/todos/useTodosService";
+import Button from '@mui/material/Button';
+
 
 interface TodosProps{
     onDeleteTodo: (id: string) => void;
@@ -53,15 +55,18 @@ export function TodoCard(props: TodosProps){
                     {todo.text}
                 </span>
                 <div className="todo-btns">
-                    <button onClick={editTodo}>Modifica</button>
-                    <button
+                    <Button 
+                    variant="contained"
+                    onClick={editTodo}>Modifica</Button>
+                    <Button
+                    variant="contained"
                     onClick={(event) => {
                         event.stopPropagation()
                         props.onDeleteTodo(todo.id)
                         }}
-                    >Cancella</button>
-                    <button onClick={()=>{console.log(todo.id)}}>Dammi l'ID</button>
-                    <button onClick={toggleCompletion}>Segna come {todo.isCompleted ? 'da completare' : 'completato'} </button>
+                    >Cancella</Button>
+                    <Button variant="contained" onClick={()=>{console.log(todo.id)}}>Dammi l'ID</Button>
+                    <Button variant="contained">Segna come {todo.isCompleted ? 'da completare' : 'completato'} </Button>
                 </div>
                 <span>Stato: {todo.isCompleted ? 'completato' : 'da completare'}</span>
             </div>
