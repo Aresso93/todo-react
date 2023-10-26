@@ -10,8 +10,8 @@ import { useForm } from 'react-hook-form';
 import { useTodosService } from '../services/todos/useTodosService';
 
 interface IFormInput {
-    todoTitle: string;
-    todoText: string;
+    title: string;
+    text: string;
   }
   export function TodoNew() {
     
@@ -25,7 +25,7 @@ interface IFormInput {
       } = useForm<IFormInput>();
     
       const onSubmit = (data: IFormInput) => {
-        actions.addTodo(todo)
+        actions.addTodo(data)
         console.log('todo inviato')
       }; 
     
@@ -38,26 +38,34 @@ interface IFormInput {
     const handleClose = () => {
     setOpen(false);
     };
-    const handleCloseWithoutPosting = () => {
-    setOpen(false);
-    
-  };
 
   return (
     <div className='form-container'>
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>Titolo</label>
       <input
-        {...register("todoTitle", {
+        {...register("title", {
           required: true,
           maxLength: 50,
         })}
       />
-      {errors?.todoTitle?.type === "required" && <p>This field is required</p>}
-      {errors?.todoTitle?.type === "maxLength" && (
+      {errors?.title?.type === "required" && <p>This field is required</p>}
+      {errors?.title?.type === "maxLength" && (
         <p>Non più di 50 caratteri</p>
       )}
-      <input type="submit" />
+      <label>Testo</label>
+      <input
+        {...register("text", {
+          required: true,
+          maxLength: 50,
+        })}
+      />
+      {errors?.title?.type === "required" && <p>This field is required</p>}
+      {errors?.title?.type === "maxLength" && (
+        <p>Non più di 50 caratteri</p>
+        )}
+        <input type="submit" />
+
     </form>
 
 

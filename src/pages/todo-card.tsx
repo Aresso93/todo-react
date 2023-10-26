@@ -11,6 +11,11 @@ import { Icon } from "@mui/material";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
+export const testTodo: Partial<Todo> = {
+  isCompleted : false,
+  text : 'AAAAAAAAAAAA',
+  title : 'A',
+}
 
 interface TodosProps{
     onDeleteTodo: (id: string) => void;
@@ -98,6 +103,9 @@ export function TodoCard(props: TodosProps){
     
       )}
       
+      <Button
+      onClick={() => actions.addTodo(testTodo)}
+      >PROVA</Button>
       </div>
     )
 }
