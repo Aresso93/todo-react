@@ -3,7 +3,7 @@ import { Todo } from "../../model/todo";
 
 export type TodoGetSuccess = { type: 'todoGetSuccess', payload: Todo[] };
 export type TodoDeleteSuccess = { type: 'todoDeleteSuccess', payload: string };
-export type TodoAddSuccess = { type: 'todoAddSuccess', payload: Todo};
+export type TodoAddSuccess = { type: 'todoAddSuccess'};
 export type TodoEditSuccess = { type: 'todoEditSuccess', payload: Todo};
 export type TodoSetActive = { type: 'todoSetActive', payload: Partial<Todo> | null};
 export type ToggleCompletion = {type: 'todoToggleCompletion'}

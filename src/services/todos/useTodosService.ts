@@ -46,7 +46,7 @@ export function useTodosService(){
         dispatch({type: 'pending', payload: true})
         try{
             const res = await TodosApi.add(todo)
-            dispatch({type: 'todoAddSuccess', payload: res})
+            dispatch({type: 'todoAddSuccess'})
 
         } catch (err){
             dispatch({type: 'error', payload: 'Todos non aggiunti'})
@@ -64,6 +64,8 @@ export function useTodosService(){
             dispatch({type: 'error', payload: 'Todo non modificato'})
         }
         getTodos()
+        console.log('EDIT');
+        
       }
 
       function setActiveItem(Todo: Todo | {}){

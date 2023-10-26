@@ -7,15 +7,9 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Icon } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon, TextField } from "@mui/material";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-
-export const testTodo: Partial<Todo> = {
-  isCompleted : false,
-  text : 'AAAAAAAAAAAA',
-  title : 'A',
-}
 
 interface TodosProps{
     onDeleteTodo: (id: string) => void;
@@ -33,7 +27,15 @@ export function TodoCard(props: TodosProps){
         
       }, [])
 
+      const [open, setOpen] = React.useState(false);
 
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
     
     return (
         <div className="card-wrapper">
@@ -80,7 +82,32 @@ export function TodoCard(props: TodosProps){
             }}>Modifica
           </Button>
 
-            
+          <div>
+        <Button variant="contained" onClick={handleClickOpen}>
+        Open form dialog
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+           {todo.text}
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+        </Dialog>
+        </div>
 
 
             <Button
@@ -103,9 +130,6 @@ export function TodoCard(props: TodosProps){
     
       )}
       
-      <Button
-      onClick={() => actions.addTodo(testTodo)}
-      >PROVA</Button>
       </div>
     )
 }

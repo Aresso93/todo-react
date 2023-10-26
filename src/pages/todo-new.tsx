@@ -26,6 +26,7 @@ interface IFormInput {
     
       const onSubmit = (data: IFormInput) => {
         actions.addTodo(data)
+        actions.getTodos()
         console.log('todo inviato')
       }; 
     
@@ -48,29 +49,27 @@ interface IFormInput {
           required: true,
           maxLength: 50,
         })}
-      />
-      {errors?.title?.type === "required" && <p>This field is required</p>}
+        />
+      {errors?.title?.type === "required" && <p>Campo necessario</p>}
       {errors?.title?.type === "maxLength" && (
         <p>Non più di 50 caratteri</p>
-      )}
+        )}
       <label>Testo</label>
       <input
         {...register("text", {
           required: true,
-          maxLength: 50,
+          maxLength: 250,
         })}
-      />
-      {errors?.title?.type === "required" && <p>This field is required</p>}
-      {errors?.title?.type === "maxLength" && (
-        <p>Non più di 50 caratteri</p>
+        />
+      {errors?.text?.type === "required" && <p>Campo necessario</p>}
+      {errors?.text?.type === "maxLength" && (
+        <p>Non più di 250 caratteri</p>
         )}
         <input type="submit" />
 
     </form>
 
-
-
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
+   <Button variant="outlined" onClick={handleClickOpen}>
         +
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -99,10 +98,13 @@ interface IFormInput {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseWithoutPosting}>Chiudi</Button>
-          <Button onClick={handleClose}>Posta</Button>
+          <Button onClick={handleClose}>Chiudi</Button>
+          <Button onClick={() => {
+            handleClose()
+            //onSubmit()
+          }}>Posta</Button>
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 }
