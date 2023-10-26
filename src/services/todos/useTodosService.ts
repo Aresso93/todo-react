@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Todo } from "../../model/todo";
+import { Todo, TodoCompletion } from "../../model/todo";
 import * as TodosApi from "./todos.api";
 import { initialState, todosReducer } from "./todos.reducer";
 
@@ -22,17 +22,25 @@ export function useTodosService(){
         dispatch({type: 'pending', payload: true})
         try{
             const res = await TodosApi.remove(id)
-            dispatch({type: 'todoDeleteSuccess', payload: id})
-
+            //dispatch({type: 'todoDeleteSuccess', payload: id})
+            getTodos()
         } catch (err){
             dispatch({type: 'error', payload: 'Todos non cancellati'})
         }
         
       }
 
-      // function toggleCompletion(isCompleted:boolean){
-      //   dispatch({type: 'todoToggleCompletion', payload: isCompleted})
-      // }
+      async function patchCompletion(id: string, completion: boolean){
+        dispatch({type: 'pending', payload: true})
+        console.log('id', id, 'completato?', completion);
+        try {
+          const res = await TodosApi.patchCompletion(id, completion);
+          dispatch({ type: 'todoToggleCompletion'})
+        } catch(e) {
+          dispatch({ type: 'error', payload: 'Todo non aggiornato'  })
+        }
+        getTodos()
+       }
 
       async function addTodo(Todo: Partial<Todo>){
         dispatch({type: 'pending', payload: true})
@@ -43,7 +51,7 @@ export function useTodosService(){
         } catch (err){
             dispatch({type: 'error', payload: 'Todos non aggiunti'})
         }
-        
+        getTodos()
       }
 
       async function editTodo(Todo: Partial<Todo>){
@@ -55,7 +63,7 @@ export function useTodosService(){
         } catch (err){
             dispatch({type: 'error', payload: 'Todo non modificato'})
         }
-        
+        getTodos()
       }
 
       function setActiveItem(Todo: Todo | {}){
@@ -70,7 +78,7 @@ export function useTodosService(){
         actions: {
             getTodos,
             deleteTodo,
-            //toggleCompletion,
+            patchCompletion,
             addTodo,
             editTodo,
             setActiveItem,

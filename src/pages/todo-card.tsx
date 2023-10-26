@@ -20,18 +20,18 @@ interface TodosProps{
 
 export function TodoCard(props: TodosProps){
     
-    const {state, actions} = useTodosService()
+    const {
+      state, actions} = useTodosService()
 
-    
     useEffect(() => {
         actions.getTodos()
         console.log(state);
         
       }, [])
 
-    useEffect(()=>{
-        console.log('bbbbb', state);
-    }, [state])
+    // useEffect(()=>{
+    //     console.log('bbbbb', state);
+    // }, [state])
 
     
     return (
@@ -86,13 +86,15 @@ export function TodoCard(props: TodosProps){
             </Button>
         <Button variant="contained" onClick={()=>{console.log(todo.id)}}>Dammi l'ID</Button>
         {todo.isCompleted ? 
-        <Button variant="outlined">Segna come da completare</Button> : 
-        <Button variant="contained" color="success">Segna come completato</Button>}
+        <Button variant="contained" color="success" onClick={() => actions.patchCompletion(todo.id, false)}>Segna come completato </Button> :
+        <Button variant="outlined" onClick={() => actions.patchCompletion(todo.id, true)}>Segna come da completare</Button>   
+        }
           </CardActions>
            
         </Card>
     
       )}
+      
       </div>
     )
 }

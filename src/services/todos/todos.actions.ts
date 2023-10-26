@@ -1,21 +1,21 @@
-import { Todo } from "../../model/todo";
+import { Todo, TodoCompletion } from "../../model/todo";
 
 
-export type todoGetSuccess = { type: 'todoGetSuccess', payload: Todo[] };
-export type ProductDeleteSuccess = { type: 'todoDeleteSuccess', payload: string };
-export type ProductAddSuccess = { type: 'todoAddSuccess', payload: Todo};
-export type ProductEditSuccess = { type: 'todoEditSuccess', payload: Todo};
-export type todoSetActive = { type: 'todoSetActive', payload: Partial<Todo> | null};
-export type todoToggleCompletion = {type: 'todoToggleCompletion', payload: Partial<Todo>}
+export type TodoGetSuccess = { type: 'todoGetSuccess', payload: Todo[] };
+export type TodoDeleteSuccess = { type: 'todoDeleteSuccess', payload: string };
+export type TodoAddSuccess = { type: 'todoAddSuccess', payload: Todo};
+export type TodoEditSuccess = { type: 'todoEditSuccess', payload: Todo};
+export type TodoSetActive = { type: 'todoSetActive', payload: Partial<Todo> | null};
+export type ToggleCompletion = {type: 'todoToggleCompletion'}
 export type Error = { type: 'error', payload: string };
 export type Pending = { type: 'pending', payload: boolean };
 
 export type todoActions =
-  todoGetSuccess |
-  ProductDeleteSuccess |
-  ProductAddSuccess |
-  ProductEditSuccess |
-  todoSetActive |
-  todoToggleCompletion|
+  TodoGetSuccess |
+  TodoDeleteSuccess |
+  TodoAddSuccess |
+  TodoEditSuccess |
+  TodoSetActive |
+  ToggleCompletion|
   Error |
   Pending ;

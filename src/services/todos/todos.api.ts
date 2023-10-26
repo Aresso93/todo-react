@@ -1,5 +1,4 @@
-
-import { Todo } from "../../model/todo";
+import { Todo, TodoCompletion } from "../../model/todo";
 import { pb } from "../../pocketbase";
 
 
@@ -18,4 +17,8 @@ export function add(todo:Partial<Todo>){
 
 export function edit(todo:Partial<Todo>){
     return pb.collection('todos').update<Todo>(todo.id!, todo)
+}
+
+export function patchCompletion(id: string, isCompleted:boolean){
+    return pb.collection('todos').update<Todo>(id, {isCompleted})
 }
