@@ -4,8 +4,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
-import AddIcon from '@mui/icons-material/Add';
-import { useTodosService } from "../services/todos/useTodosService";
 
 export default function Navbar() {
 
@@ -27,18 +25,6 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Todo importantissimi
           </Typography>
-          <Typography variant="h6" component="div">
-            Aggiungi un nuovo todo
-          </Typography>
-          <IconButton
-            size="small"
-            edge="end"
-            color="inherit"
-            aria-label="add"
-            sx={{ mr: 2 }}
-          >
-            <AddIcon />
-          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>

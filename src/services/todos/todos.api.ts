@@ -1,4 +1,4 @@
-import { Todo, TodoCompletion } from "../../model/todo";
+import { Todo } from "../../model/todo";
 import { pb } from "../../pocketbase";
 
 

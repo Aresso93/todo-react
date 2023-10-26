@@ -1,4 +1,4 @@
-import { Todo, TodoCompletion } from "../../model/todo";
+import { Todo } from "../../model/todo";
 
 
 export type TodoGetSuccess = { type: 'todoGetSuccess', payload: Todo[] };

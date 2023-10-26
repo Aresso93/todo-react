@@ -1,32 +1,100 @@
-import Input from "@mui/material/Input";
-import Button from "@mui/material/Button";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useForm } from 'react-hook-form';
+import { useTodosService } from '../services/todos/useTodosService';
 
+interface IFormInput {
+    todoTitle: string;
+    todoText: string;
+  }
+  export function TodoNew() {
+    
+    const {actions} = useTodosService()
 
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors }
+      } = useForm<IFormInput>();
+    
+      const onSubmit = (data: IFormInput) => {
+        actions.addTodo(todo)
+        console.log('todo inviato')
+      }; 
+    
+      console.log(watch())
 
-export function TodoNew(){
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+    setOpen(true);
+    };
+    const handleClose = () => {
+    setOpen(false);
+    };
+    const handleCloseWithoutPosting = () => {
+    setOpen(false);
+    
+  };
 
-return (
-    <form className="input-container" action="">
-    <Input
-     color="primary"
-    placeholder="titolo del task"
-    size="small"
-    />
-    <Input
-    className="input-bottom"
-    color="primary"
-    placeholder="testo"
-    size="medium"
-    />
-    <Button
-    onClick={()=>{
-        console.log('new')
-        
-    }}
-    variant="outlined">
-        Aggiungi un todo!
-    </Button>
+  return (
+    <div className='form-container'>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label>Titolo</label>
+      <input
+        {...register("todoTitle", {
+          required: true,
+          maxLength: 50,
+        })}
+      />
+      {errors?.todoTitle?.type === "required" && <p>This field is required</p>}
+      {errors?.todoTitle?.type === "maxLength" && (
+        <p>Non più di 50 caratteri</p>
+      )}
+      <input type="submit" />
     </form>
-    )
-   
+
+
+
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
+        +
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Crea nuovo todo</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Aggiungi un nuovo todo nello spazio sottostante
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Titolo del nuovo todo"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Nuovo todo"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseWithoutPosting}>Chiudi</Button>
+          <Button onClick={handleClose}>Posta</Button>
+        </DialogActions>
+      </Dialog> */}
+    </div>
+  );
 }

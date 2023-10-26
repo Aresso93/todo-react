@@ -6,7 +6,7 @@ html, body {
 .input-container{
     padding: 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .input-bottom{
@@ -25,4 +25,11 @@ html, body {
     flex-wrap: wrap;
     gap: 16px;
     margin: 16px;
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    padding-bottom: 0px;
 }

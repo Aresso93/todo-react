@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Todo, TodoCompletion } from "../../model/todo";
+import { Todo } from "../../model/todo";
 import * as TodosApi from "./todos.api";
 import { initialState, todosReducer } from "./todos.reducer";
 
@@ -42,10 +42,10 @@ export function useTodosService(){
         getTodos()
        }
 
-      async function addTodo(Todo: Partial<Todo>){
+      async function addTodo(todo: Partial<Todo>){
         dispatch({type: 'pending', payload: true})
         try{
-            const res = await TodosApi.add(Todo)
+            const res = await TodosApi.add(todo)
             dispatch({type: 'todoAddSuccess', payload: res})
 
         } catch (err){

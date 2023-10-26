@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useEffect, useReducer, useState } from "react";
 import { Todo } from "../model/todo";
 import { useTodosService } from "../services/todos/useTodosService";
@@ -11,12 +12,10 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 
-
 interface TodosProps{
     onDeleteTodo: (id: string) => void;
     todos: Todo[];
 }
-
 
 export function TodoCard(props: TodosProps){
     
@@ -29,9 +28,6 @@ export function TodoCard(props: TodosProps){
         
       }, [])
 
-    // useEffect(()=>{
-    //     console.log('bbbbb', state);
-    // }, [state])
 
     
     return (
@@ -68,6 +64,9 @@ export function TodoCard(props: TodosProps){
           </CardContent>
        
           <CardActions>
+
+
+
           <Button 
             variant="contained"
             onClick={(event) => {
@@ -75,6 +74,10 @@ export function TodoCard(props: TodosProps){
                 actions.editTodo(todo)
             }}>Modifica
           </Button>
+
+            
+
+
             <Button
                 variant="contained"
                 color="warning"
@@ -86,8 +89,8 @@ export function TodoCard(props: TodosProps){
             </Button>
         <Button variant="contained" onClick={()=>{console.log(todo.id)}}>Dammi l'ID</Button>
         {todo.isCompleted ? 
-        <Button variant="contained" color="success" onClick={() => actions.patchCompletion(todo.id, false)}>Segna come completato </Button> :
-        <Button variant="outlined" onClick={() => actions.patchCompletion(todo.id, true)}>Segna come da completare</Button>   
+        <Button variant="contained" color="success" onClick={() => actions.patchCompletion(todo.id, false)}>Segna come da completare </Button> :
+        <Button variant="outlined" onClick={() => actions.patchCompletion(todo.id, true)}>Segna come completato</Button>   
         }
           </CardActions>
            
