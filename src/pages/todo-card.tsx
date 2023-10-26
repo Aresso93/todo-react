@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect, useReducer, useState } from "react";
+import { useEffect } from "react";
 import { Todo } from "../model/todo";
 import { useTodosService } from "../services/todos/useTodosService";
 import Button from '@mui/material/Button';
@@ -10,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Icon } from "@mui/material";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-
+import { TodoCardDialog } from './todo-card.dialog';
 
 interface TodosProps{
     onDeleteTodo: (id: string) => void;
@@ -28,20 +27,16 @@ export function TodoCard(props: TodosProps){
         
       }, [])
 
-
-    
     return (
         <div className="card-wrapper">
-
+        <TodoCardDialog/>
         {state.todos.map(todo => 
         <Card variant="outlined" sx={{maxWidth: 500}} key={todo.id}>
             <CardContent className="card-content" >
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             </Typography>
             <Typography variant="h5" component="div">
-             
             {todo.title}
-            
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {todo.text}
@@ -56,8 +51,6 @@ export function TodoCard(props: TodosProps){
                 <Icon>
                 <CheckBoxOutlineBlankIcon />
                 </Icon>}
-           
-            
             <br></br>
               Aggiunto in data {new Date(todo.created).toDateString()} <br></br>
             </Typography> 
@@ -65,18 +58,7 @@ export function TodoCard(props: TodosProps){
        
           <CardActions>
 
-
-
-          <Button 
-            variant="contained"
-            onClick={(event) => {
-                event.stopPropagation()
-                actions.editTodo(todo)
-            }}>Modifica
-          </Button>
-
-            
-
+          
 
             <Button
                 variant="contained"
@@ -87,7 +69,6 @@ export function TodoCard(props: TodosProps){
             }}
             >Cancella
             </Button>
-        <Button variant="contained" onClick={()=>{console.log(todo.id)}}>Dammi l'ID</Button>
         {todo.isCompleted ? 
         <Button variant="contained" color="success" onClick={() => actions.patchCompletion(todo.id, false)}>Segna come da completare </Button> :
         <Button variant="outlined" onClick={() => actions.patchCompletion(todo.id, true)}>Segna come completato</Button>   
@@ -95,9 +76,7 @@ export function TodoCard(props: TodosProps){
           </CardActions>
            
         </Card>
-    
       )}
-      
       </div>
     )
 }
