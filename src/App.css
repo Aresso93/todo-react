@@ -33,3 +33,15 @@ html, body {
     padding: 8px;
     padding-bottom: 0px;
 }
+
+.submit-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-container{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding: 8px;
+}

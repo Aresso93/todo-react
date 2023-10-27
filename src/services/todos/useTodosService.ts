@@ -29,6 +29,16 @@ export function useTodosService(){
         }
         
       }
+      async function addTodo(todo: Partial<Todo>){
+        dispatch({type: 'pending', payload: true})
+        try{
+            const res = await TodosApi.add(todo)
+            getTodos()
+            //dispatch({type: 'todoAddSuccess'})
+        } catch (err){
+            dispatch({type: 'error', payload: 'Todos non aggiunti'})
+        }
+      }
 
       async function patchCompletion(id: string, completion: boolean){
         dispatch({type: 'pending', payload: true})
@@ -42,22 +52,11 @@ export function useTodosService(){
         getTodos()
        }
 
-      async function addTodo(todo: Partial<Todo>){
+
+      async function editTodo(todo: Partial<Todo>){
         dispatch({type: 'pending', payload: true})
         try{
-            const res = await TodosApi.add(todo)
-            dispatch({type: 'todoAddSuccess'})
-
-        } catch (err){
-            dispatch({type: 'error', payload: 'Todos non aggiunti'})
-        }
-        getTodos()
-      }
-
-      async function editTodo(Todo: Partial<Todo>){
-        dispatch({type: 'pending', payload: true})
-        try{
-            const resp = await TodosApi.edit(Todo)
+            const resp = await TodosApi.edit(todo)
             dispatch({type: 'todoEditSuccess', payload: resp})
 
         } catch (err){

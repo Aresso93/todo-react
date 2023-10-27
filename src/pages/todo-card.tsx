@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { TodoCardDialog } from './todo-card.dialog';
 import { Todo } from "../model/todo";
 import { useTodosService } from "../services/todos/useTodosService";
 import Button from '@mui/material/Button';
@@ -9,27 +10,36 @@ import Typography from '@mui/material/Typography';
 import { Icon } from "@mui/material";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { TodoCardDialog } from './todo-card.dialog';
+import { useDialogActions } from "../services/todos/useDialogActions";
 
 interface TodosProps{
     onDeleteTodo: (id: string) => void;
+    onAddTodo: (todo: Partial<Todo>) => void;
     todos: Todo[];
+    
 }
 
 export function TodoCard(props: TodosProps){
     
-    const {
-      state, actions} = useTodosService()
+    const {state, actions} = useTodosService()
+    const openDialog = useDialogActions()
+    const closeDialog = useDialogActions()
+    const [selectedTodo, setSelectedTodo] = useState<Todo>() 
 
     useEffect(() => {
         actions.getTodos()
-        console.log(state);
-        
       }, [])
-
-    return (
+    
+      return (
+        <>
+        
+    {/* dialog form */}
+     {selectedTodo && 
+     <TodoCardDialog
+      selectedTodo={selectedTodo}
+      open = {openDialog.states.open = true}/>}
+    {/* dialog form */}
         <div className="card-wrapper">
-        <TodoCardDialog/>
         {state.todos.map(todo => 
         <Card variant="outlined" sx={{maxWidth: 500}} key={todo.id}>
             <CardContent className="card-content" >
@@ -57,15 +67,22 @@ export function TodoCard(props: TodosProps){
           </CardContent>
        
           <CardActions>
+           
+          <Button 
+            variant="outlined" 
+            onClick={()=>{
+            setSelectedTodo(todo)
+            openDialog.dialogActions.handleClickOpen()
+            }}>
+          Modifica
+          </Button>
 
-          
-
-            <Button
-                variant="contained"
-                color="warning"
-                onClick={(event) => {
-                event.stopPropagation()
-                actions.deleteTodo(todo.id)
+          <Button
+              variant="contained"
+              color="warning"
+              onClick={(event) => {
+              event.stopPropagation()
+              actions.deleteTodo(todo.id)
             }}
             >Cancella
             </Button>
@@ -78,5 +95,6 @@ export function TodoCard(props: TodosProps){
         </Card>
       )}
       </div>
+      </>
     )
 }

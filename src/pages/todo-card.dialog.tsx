@@ -1,16 +1,17 @@
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from "@mui/material";
-import React, { useEffect } from "react";
-import { useTodosService } from "../services/todos/useTodosService";
+import React from "react";
+import { Todo } from "../model/todo";
+import { useDialogActions } from "../services/todos/useDialogActions";
+import { TodoCard } from "./todo-card";
 
-export function TodoCardDialog(){
 
-    const {state, actions} = useTodosService()
+export interface DialogProps{
+  selectedTodo: Todo;
+  open: boolean;
+}
 
-    useEffect(() => {
-        actions.getTodos()
-        console.log(state.todos)
-      }, [])
-
+export function TodoCardDialog(props: DialogProps){
+    const {states, dialogActions} = useDialogActions()
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
       setOpen(true);
@@ -21,12 +22,9 @@ export function TodoCardDialog(){
     };
   
     return (
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Modifica il todo
-        </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Subscribe</DialogTitle>
+      <div className="dialog-container">
+        <Dialog open={props.open} onClose={handleClose}>
+          <DialogTitle>Modifica</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Modifica il todo selezionato
@@ -34,16 +32,24 @@ export function TodoCardDialog(){
             <TextField
               autoFocus
               margin="dense"
-              id="name"
+              id="text"
               label='Modifica:'
               type="text"
               fullWidth
-              variant="standard"
+              variant="outlined"
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Annulla</Button>
-            <Button onClick={handleClose}>Modifica</Button>
+            <Button onClick={dialogActions.handleClose}>
+              Annulla
+            </Button>
+
+            <Button onClick={() =>{
+              dialogActions.handleClose
+              console.log(props.open);
+              }}
+              >Modifica
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

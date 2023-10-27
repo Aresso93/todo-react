@@ -27,7 +27,9 @@ interface IFormInput {
       const onSubmit = (data: IFormInput) => {
         actions.addTodo(data)
         actions.getTodos()
-        console.log('todo inviato')
+        console.log('todo inviato', data)
+        
+        
       }; 
     
       console.log(watch())
@@ -42,8 +44,8 @@ interface IFormInput {
 
   return (
     <div className='form-container'>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label>Titolo</label>
+    <form onSubmit={handleSubmit(onSubmit)} className='submit-form'>
+      <label>Titolo del todo (max 50 caratteri)</label>
       <input
         {...register("title", {
           required: true,
@@ -54,7 +56,7 @@ interface IFormInput {
       {errors?.title?.type === "maxLength" && (
         <p>Non più di 50 caratteri</p>
         )}
-      <label>Testo</label>
+      <label>Testo del todo (max 250 caratteri)</label>
       <input
         {...register("text", {
           required: true,
@@ -69,7 +71,7 @@ interface IFormInput {
 
     </form>
 
-   <Button variant="outlined" onClick={handleClickOpen}>
+   {/* <Button variant="outlined" onClick={handleClickOpen}>
         +
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -104,7 +106,7 @@ interface IFormInput {
             //onSubmit()
           }}>Posta</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }

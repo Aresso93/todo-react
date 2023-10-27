@@ -7,10 +7,7 @@ import '@fontsource/roboto/700.css';
 import Navbar from './shared/navbar';
 import { TodoNew } from './pages/todo-new';
 
-
 function App() {
-  
-
   return (
     <>
       <Navbar/>
@@ -23,16 +20,3 @@ function App() {
 }
 
 export default App
-
-
-{/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            name='text'
-            label="Corpo del todo"
-            type="text"
-            fullWidth
-            variant="standard"
-            placeholder={todo.text}
-          /> */}
