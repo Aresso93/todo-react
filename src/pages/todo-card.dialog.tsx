@@ -2,8 +2,6 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, Dialo
 import React from "react";
 import { Todo } from "../model/todo";
 import { useDialogActions } from "../services/todos/useDialogActions";
-import { TodoCard } from "./todo-card";
-
 
 export interface DialogProps{
   selectedTodo: Todo;
@@ -13,9 +11,6 @@ export interface DialogProps{
 export function TodoCardDialog(props: DialogProps){
     const {states, dialogActions} = useDialogActions()
     const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
   
     const handleClose = () => {
       setOpen(false);
@@ -33,7 +28,7 @@ export function TodoCardDialog(props: DialogProps){
               autoFocus
               margin="dense"
               id="text"
-              label='Modifica:'
+              label='...'
               type="text"
               fullWidth
               variant="outlined"
@@ -46,7 +41,6 @@ export function TodoCardDialog(props: DialogProps){
 
             <Button onClick={() =>{
               dialogActions.handleClose
-              console.log(props.open);
               }}
               >Modifica
             </Button>

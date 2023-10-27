@@ -23,7 +23,6 @@ export function TodoCard(props: TodosProps){
     
     const {state, actions} = useTodosService()
     const openDialog = useDialogActions()
-    const closeDialog = useDialogActions()
     const [selectedTodo, setSelectedTodo] = useState<Todo>() 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ export function TodoCard(props: TodosProps){
      {selectedTodo && 
      <TodoCardDialog
       selectedTodo={selectedTodo}
-      open = {openDialog.states.open = true}/>}
+      open = {openDialog.states.open}/>}
     {/* dialog form */}
         <div className="card-wrapper">
         {state.todos.map(todo => 
